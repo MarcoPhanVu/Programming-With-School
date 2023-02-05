@@ -22,10 +22,13 @@ void trungBinhCongSoLe(int a[], int n);
 void tongSCP(int a[], int n);
 void amountOfPrimes(int a[], int n);
 void quest15(int a[], int n);
-vvvv
+void isAllElePosOdd(int a[], int n);
+void isAllElePrime(int a[], int n);
+void isAmDuongXenKe(int a[], int n);
+void sepArr(int a[], int n);
 
 int main() {
-    int a[MAX_SIZE] = {131, 169, 393, 133, 666, 760, 32};
+    int a[MAX_SIZE] = {1, -2, 3, -4, 5, -6, 7};
     int n = 7;
     int choice;
     
@@ -83,8 +86,20 @@ int main() {
                 cout << "Tat ca phan tu trong mang la so duong le: ";
                 isAllElePosOdd(a, n);
                 break;
+            case 10: //21 yes/no if all num = prime
+                cout << "Tat ca phan tu trong mang la so nguyen to: ";
+                isAllElePrime(a, n);
+                break;
+            case 11: //24
+                cout << "Có phải âm dương xen kẽ?: ";
+                isAmDuongXenKe(a, n);
+                break;
+            case 12: //27 
+                cout << "Tách làm 2 mảng chẵn lẻ: " << "\n";
+                sepArr(a, n);
+                break;
             default:
-                cout << "Nhap sai, vui long nhap lai" << "\n";
+                cout << "Khong co lua chon nay, vui long nhap lai" << "\n";
         }
     } while (choice != 0);
 
@@ -95,7 +110,7 @@ void inputArray(int a[], int &n) {
     cout << "Nhap so phan tu cua mang: ";
     cin >> n;
     cout << "Nhap cac phan tu cua mang: " << "\n";
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n; ++i) {
         cout << "a[" << i << "] = ";
         cin >> a[i];
     }
@@ -103,7 +118,7 @@ void inputArray(int a[], int &n) {
 
 void outputArray(int a[], int n) {
     cout << "Mang vua nhap la: " << "\n";
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n; ++i) {
         cout << a[i] << " ";
     }
     cout << "\n";
@@ -111,13 +126,13 @@ void outputArray(int a[], int n) {
 
 void randomArray(int a[], int n) {
     srand(time(0));
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n; ++i) {
         a[i] = rand() % 100;
     }
 }
 
 void tongSoNguyenKoAmChiaHet3Va4(int a[], int n) {
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n; ++i) {
         if (a[i] >= 0 && a[i] % 3 == 0 && a[i] % 4 == 0) {
             sum += a[i];
         }
@@ -129,7 +144,7 @@ void trungBinhCongSoLe(int a[], int n) {
     int tempCount = 0;
     int tempSum = 0;
     
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n; ++i) {
         if (a[i]%2 == 1) {
             tempSum += a[i];
             ++tempCount;
@@ -143,7 +158,7 @@ void trungBinhCongSoLe(int a[], int n) {
 
 void tongSCP(int a[], int n) {
     int result = 0;
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n; ++i) {
         if (isSCP(a[i])) {
             result += a[i];
         }
@@ -153,7 +168,7 @@ void tongSCP(int a[], int n) {
 
 void amountOfPrimes(int a[], int n) {
     int result = 0;
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n; ++i) {
         if (isPrime(a[i])) {
             ++result;
         }
@@ -162,7 +177,7 @@ void amountOfPrimes(int a[], int n) {
 }
 
 bool isPrime(int num) { //Function to check if prime
-    if (num == 1 || num == 0) return false;
+    if (num == 1 || num <= 0) return false;
     if (num == 2 || num == 3) return true;
     if (num % 2 == 0) return false;
     for (int i = 3; i <= sqrt(num); i += 2) {
@@ -177,7 +192,7 @@ bool isSCP(int num) { // Check Số Chính Phương
 }
 
 void quest15(int a[], int n) { //All digit odds and %3 == 0;
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n; ++i) {
         if (a[i] % 2 != 0) { //num isOdd 
             int tempNum = a[i];
             int tempDigit = 0;
@@ -203,26 +218,86 @@ void quest15(int a[], int n) { //All digit odds and %3 == 0;
             }
             
             if (state == true) { // state vẫn == true vì không chữ số nào bị đánh sai
-                cout << "Có\n"; // Chỉ cần có là end(Yes/No quest;
+                cout << "Có" << "\n"; // Chỉ cần có là end(Yes/No quest;
                 return;
             }
             
         }
     }
     
-    cout << "Không có\n";
+    cout << "Không có" << "\n";
     return;
 }
 
 void isAllElePosOdd(int a[], int n) {
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n; ++i) {
         if (a[i] <= 0 || a[i] % 2 == 0) {
-            cout << "Không\n";
+            cout << "Không" << "\n";
             return;
         }
-        
     }
-    cout << "Tất cả phần tử Dương và Lẻ";
-    return;
+    cout << "Tất cả phần tử Dương và Lẻ" << "\n";
+    return; 
+}
+
+void isAllElePrime(int a[], int n) {
+    for (int i = 0; i < n; ++i) {
+        if (!isPrime(a[i])) {
+            cout << "Không" << "\n";
+            return;
+        }
+    }
+    cout << "Tất cả phần tử là số nguyên tố" << "\n";
+    return; 
+}
+
+void isAmDuongXenKe(int a[], int n) {
+    bool currState = true; // True = positive num
+    bool lastState = true; //False = Negative num
     
+    if (a[0] < 0) currState = false; //avoid conflict
+    else lastState = false;
+    
+    for (int i = 0; i < n; ++i) {
+        
+        if (a[i] <= 0) currState = false;
+        else currState = true;
+
+        if (currState == lastState) { //Không xen kẽ
+            
+            cout << "Không xen kẽ at " << i << "\n";
+            return;
+        }
+
+        lastState = currState;
+    }
+
+    cout << "Xen kẽ" << "\n";
+    return;
+}
+
+void sepArr(int a[], int n) {
+    int evenArr[n];
+    int evenIncrement = 0;
+    int oddArr[n];
+    int oddIncrement = 0;
+
+    // Sep
+    for (int i = 0; i < n; ++i) {
+        if (a[i] % 2 == 0) evenArr[evenIncrement++] = a[i];
+        else oddArr[oddIncrement++] = a[i];
+    }
+
+    // Print
+    cout << "Even Array: [" << evenArr[0];
+    for (int j = 1; j < evenIncrement; ++j) {
+        cout << ", " << evenArr[j];
+    }
+    cout << "]\n";
+
+    cout << "Odd Array: [" << oddArr[0];
+    for (int k = 1; k < oddIncrement; ++k) {
+        cout << ", " << oddArr[k];
+    }
+    cout << "]\n";
 }
